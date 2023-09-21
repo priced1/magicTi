@@ -1,19 +1,34 @@
 package com.itb.mif3an.magictilogin.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
-public class UserController {
+import com.itb.mif3an.magictilogin.model.User;
+import com.itb.mif3an.magictilogin.service.UserService;
+
+
 	
+
+	@Controller
+	public class UserController {
 	
+		@Autowired
+		private UserService userService;
 	
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-	@GetMapping("/home")
-	public String homeUser() {
+	@GetMapping("/users/home")
+	public String homeUser(Model model) {
+		
+		String home = "index";
+		User user = userService.getAuthenticatedUser();
+		String username = user.getEmail();
+		model.addAttribute("username", username);
+		
 		return "index";
 	}
 
