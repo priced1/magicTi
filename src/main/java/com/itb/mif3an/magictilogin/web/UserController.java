@@ -29,7 +29,7 @@ import com.itb.mif3an.magictilogin.service.UserService;
 		String username = user.getEmail();
 		model.addAttribute("username", username);
 		
-		return "index";
+		return home;
 	}
 
 }
