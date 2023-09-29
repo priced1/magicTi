@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.itb.mif3an.magictilogin.model.User;
 import com.itb.mif3an.magictilogin.service.UserService;
@@ -44,6 +46,14 @@ import com.itb.mif3an.magictilogin.web.dto.UserDto;
 		model.addAttribute("user", user);
 
 		return "update-registration";
+	}
+	
+	@PostMapping("/users/perfil")
+	public String updatePerfilAccount(@ModelAttribute("user")UserDto userDto) {
+		
+		User user = userService.update(userDto);
+		return "redirect:/users/perfil/" + user.getEmail();
+		
 	}
 
 }

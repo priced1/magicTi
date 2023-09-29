@@ -10,8 +10,10 @@ public interface UserService extends UserDetailsService{
 	
 	User save(UserDto userDto);
 	User findByEmail(String email);
+	User update(UserDto userDto);
 	void addRoleToUser(String username, String roleName);
 	Role saveRole(Role role);
 	User getAuthenticatedUser();
+	
 
 }

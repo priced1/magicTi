@@ -59,21 +59,21 @@
 
 				<h1>Meu Perfil</h1>
 
-				<form th:action="@{/registration}" method="post" th:object="${user}">
+				<form th:action="@{/users/perfil}" method="post" th:object="${user}">
 					<div class="form-group">
-						<label class="control-label" for="firstName"> First Name </label>
+						<label class="control-label" for="firstName"> Primeiro Nome </label>
 						<input id="firstName" class="form-control" th:field="*{firstName}"
 							required autofocus="autofocus" />
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="lastName"> Last Name </label> <input
+						<label class="control-label" for="lastName"> Último Nome </label> <input
 							id="lastName" class="form-control" th:field="*{lastName}"
 							required autofocus="autofocus" />
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="email"> Email </label> <input
+						<label class="control-label" for="email"> E-mail </label> <input
 							id="email" class="form-control" th:field="*{email}" 
 							onblur="validarDados('email', document.getElementById('email').value,'/registration/ajax/getEmail/');"
 							required
@@ -125,9 +125,9 @@
 						<button type="submit" class="btn btn-success"
 						id="botao"
 						onclick=""
-						>Register</button>
-						<span>Already registered? <a href="/" th:href="@{/login}">Login
-								here</a></span>
+						>Atualizar Perfil</button>
+						<span>Já Registrado? <a href="/" th:href="@{/login}">Logue-se
+								Aqui</a></span>
 					</div>
 				</form>
 			</div>
