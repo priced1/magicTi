@@ -52,6 +52,10 @@ import com.itb.mif3an.magictilogin.web.dto.UserDto;
 	public String updatePerfilAccount(@ModelAttribute("user")UserDto userDto) {
 		
 		User user = userService.update(userDto);
+		
+		System.out.println(user.getEnderecos().get(0).getId());
+		System.out.println(user.getEnderecos().get(0).getCep());
+		
 		return "redirect:/users/perfil/" + user.getEmail();
 		
 	}

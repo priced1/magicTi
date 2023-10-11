@@ -2,7 +2,10 @@
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,8 +16,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.itb.mif3an.magictilogin.model.Endereco;
 import com.itb.mif3an.magictilogin.model.Role;
 import com.itb.mif3an.magictilogin.model.User;
+import com.itb.mif3an.magictilogin.repository.EnderecoRepository;
 import com.itb.mif3an.magictilogin.repository.RoleRepository;
 import com.itb.mif3an.magictilogin.repository.UserRepository;
 import com.itb.mif3an.magictilogin.web.dto.UserDto;
@@ -33,6 +38,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private RoleRepository roleRepository;
 
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
 	@Override
 	public User findByEmail(String email) {
 		
@@ -50,6 +58,18 @@ public class UserServiceImpl implements UserService {
 				             passwordEncoder.encode(userDto.getPassword()),
 				             new ArrayList<>(),
 				             new ArrayList<>());
+		
+		List<Endereco> enderecos = new ArrayList<>();
+		Endereco endereco = new Endereco();
+		// Relacionamento entre endereço e user
+		endereco.setUser(user);
+		enderecos.add(endereco);
+		// Relacionamento entre user e endereços (array)
+		user.setEnderecos(enderecos);
+		
+		
+		
+		
 		      userRepository.save(user);
 		      this.addRoleToUser(user.getEmail(), "ROLE_USER");
 		      return user;
@@ -106,13 +126,30 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public User update(UserDto userDto) {
 		
 		User user = userRepository.findByEmail(userDto.getEmail());
+		
+		// Buscar o endereço Principal
+				Endereco enderecoBb = user.getEnderecos().get(0);
+
+				// cep, logradouro, bairro, cidade, uf
+
+				enderecoBb.setCep(userDto.getEnderecos().get(0).getCep());
+				enderecoBb.setLogradouro(userDto.getEnderecos().get(0).getLogradouro());
+				enderecoBb.setBairro(userDto.getEnderecos().get(0).getBairro());
+				enderecoBb.setCidade(userDto.getEnderecos().get(0).getCidade());
+				enderecoBb.setUf(userDto.getEnderecos().get(0).getUf());
+
+				
+				// Outros dados do usuário
+				
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
 		user.setDataNascimento(userDto.getDataNascimento());
-		user.setEnderecos(userDto.getEnderecos());
+		
+		
 		return userRepository.save(user);
 	}
 	
