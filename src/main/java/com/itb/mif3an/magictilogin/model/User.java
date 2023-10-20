@@ -45,6 +45,7 @@ public class User {
 	private String email;
 	private String password;
 	private LocalDate dataNascimento;
+	private String principalRole;
 	
 	// 1:N
 	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)   // Um usuário para muitos endereços
@@ -177,6 +178,14 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public String getPrincipalRole() {
+		return principalRole;
+	}
+
+	public void setPrincipalRole(String principalRole) {
+		this.principalRole = principalRole;
 	}
 	
 	
