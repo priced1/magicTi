@@ -27,6 +27,11 @@ public class AdminController {
 		return home;
 		
 	}
+	@GetMapping("/usuarios/todos-usuarios")
+	public String showUsuarios(Model model) {
+
+		return "";
+	}
 	
 	
 	

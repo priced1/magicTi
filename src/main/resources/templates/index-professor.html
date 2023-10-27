@@ -23,14 +23,13 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#" th:href="@{/users/home-admin}">Registration and
-					Login Module</a>
+				<a class="navbar-brand" href="#" th:href="@{/users/home-admin}">MagicTI</a>
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li><a th:href="@{/users/perfil/{username}(username=${username})}">Perfil</a></li>
 					<li><a th:href="@{/instructor/tarefas/todas-tarefas}">Tarefas</a></li>
-					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Sair</a></li>
 				</ul>
 			</div>
 		</div>
@@ -40,8 +39,8 @@
 	<br>
 
 	<div class="container">
-		<h1>Home Page - Professor</h1>
-		Welcome <span sec:authentication="principal.username"> User</span>
+		<h1>Página Inicial - Professor</h1>
+		Bem-vindo <span sec:authentication="principal.username"> User</span>
 	</div>
 </body>
 </html>
