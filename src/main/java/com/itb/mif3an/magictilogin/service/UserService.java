@@ -1,5 +1,7 @@
 package com.itb.mif3an.magictilogin.service;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.itb.mif3an.magictilogin.model.Role;
@@ -14,6 +16,8 @@ public interface UserService extends UserDetailsService{
 	void addRoleToUser(String username, String roleName);
 	Role saveRole(Role role);
 	User getAuthenticatedUser();
+	List<User> findAllUsersByExceptPrincipalRole(String principalRole);
+	User saveUser(User user);
 	
 
 }

@@ -24,6 +24,14 @@ import com.itb.mif3an.magictilogin.web.dto.UserDto;
 	
 		@Autowired
 		private UserService userService;
+		
+		
+		
+
+     @GetMapping("/home")
+		public String index() {
+			return "home-page";
+		}
 	
 	@GetMapping("/login")
 	public String login() {
