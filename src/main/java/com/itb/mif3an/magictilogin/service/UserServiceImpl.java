@@ -167,6 +167,18 @@ public class UserServiceImpl implements UserService {
 		
 		return userRepository.save(user);
 	}
+
+	@Override
+	public List<Role> findAllRoles() {
+		
+		return roleRepository.findAll();
+	}
+
+	@Override
+	public User findUserById(Long Id) {
+		
+		return userRepository.findById(Id).get();
+	}
 	
 
 }
