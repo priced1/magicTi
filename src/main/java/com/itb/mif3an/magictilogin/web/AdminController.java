@@ -1,5 +1,6 @@
 package com.itb.mif3an.magictilogin.web;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itb.mif3an.magictilogin.model.Role;
 import com.itb.mif3an.magictilogin.model.User;
+import com.itb.mif3an.magictilogin.repository.RoleRepository;
 import com.itb.mif3an.magictilogin.service.UserService;
 import com.itb.mif3an.magictilogin.web.dto.UserDto;
 
@@ -24,6 +26,9 @@ public class AdminController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 	
 	@GetMapping("/home")
 	public String homeAdmin(Model model) {
@@ -64,12 +69,33 @@ public class AdminController {
 	
 	@PostMapping("/usuarios/update-principal-role/id")
 	public String updatePrincipalRoleUser(@ModelAttribute("user") UserDto userDto, 
-											@PathVariable("id") Long id,
-											Model model,
+											@PathVariable("id") Long id, Model model,
 											@RequestParam(value ="roleName", required = false) String roleName){ 
 		
 		User user = userService.getAuthenticatedUser();
-		return "";
+		String username = user.getEmail();
+		User userDb = userService.findUserById(id);
+		Collection<Role> rolesUser = userDb.getRoles();
+		Role role = roleRepository.findByName(roleName);
+
+		// Se o papel principal for ROLE_USER, então o usuário só pode ser ROLE_USER não terá nenhum outro papel
+
+		if(role.getName().equals("ROLE_USER")) {
+			rolesUser.removeAll(rolesUser);
+			rolesUser.add(role);
+		}
+
+		if(!rolesUser.contains(role)) {
+			rolesUser.add(role);	
+		}
+
+		userDb.setPrincipalRole(roleName);
+
+		userService.saveUser(userDb);
+		model.addAttribute("username",username);
+
+		return "redirect:/admin/usuarios/todos-usuarios";
 	}
-	
+
+
 }
