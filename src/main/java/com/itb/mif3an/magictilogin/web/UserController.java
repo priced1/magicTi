@@ -28,9 +28,9 @@ import com.itb.mif3an.magictilogin.web.dto.UserDto;
 		
 		
 
-     @GetMapping("/home")
-		public String index() {
-			return "home-page";
+     @GetMapping("/inicial")
+		public String inicial() {
+			return "inicial";
 		}
 	
 	@GetMapping("/login")
@@ -64,12 +64,12 @@ import com.itb.mif3an.magictilogin.web.dto.UserDto;
 	@GetMapping("/users/home")
 	public String homeUser(Model model) {
 		
-		String home = "index";
+		String home = "home";
 		User user = userService.getAuthenticatedUser();
 		String username = user.getEmail();
 		model.addAttribute("username", username);
 		
-		return home;
+		return "index";
 	}
 	
 	@GetMapping("/users/perfil/{username}")
