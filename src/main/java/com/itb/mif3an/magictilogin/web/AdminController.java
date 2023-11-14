@@ -68,7 +68,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("/usuarios/update-principal-role/id")
-	public String updatePrincipalRoleUser(@ModelAttribute("user") UserDto userDto, 
+	public String updatePrincipalRoleUser	(@ModelAttribute("user") UserDto userDto, 
 											@PathVariable("id") Long id, Model model,
 											@RequestParam(value ="roleName", required = false) String roleName){ 
 		

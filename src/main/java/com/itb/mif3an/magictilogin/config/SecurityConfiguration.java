@@ -56,8 +56,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		    .antMatchers(GET, "/users/**").hasAnyAuthority("ROLE_USER")
 		    .antMatchers(GET, "/admin/**").hasAnyAuthority("ROLE_ADMIN")
 		    .antMatchers(POST, "/admin/**").hasAnyAuthority("ROLE_ADMIN")
-		    .antMatchers(GET, "/student/**").hasAnyAuthority("ROLE_STUDENT")
-		    .antMatchers(GET, "/instructor/**").hasAnyAuthority("ROLE_INSTRUCTOR")
 		    .anyRequest().authenticated()
 		    .and()
 		    .httpBasic()

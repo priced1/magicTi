@@ -33,8 +33,7 @@ public class MagicTiLoginApplication {
 			if(roleRepository.findAll().size() == 0) {
 				userService.saveRole(new Role("ROLE_USER"));
 				userService.saveRole(new Role("ROLE_ADMIN"));
-				userService.saveRole(new Role("ROLE_INSTRUCTOR"));
-				userService.saveRole(new Role("ROLE_STUDENT"));
+				
 			}
 			
 		};

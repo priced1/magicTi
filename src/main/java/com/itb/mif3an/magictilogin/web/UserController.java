@@ -53,8 +53,6 @@ import com.itb.mif3an.magictilogin.web.dto.UserDto;
 				home = "redirect:/admin/home";
 			}else if(r.getName().equals("ROLE_USER") && principalRole.equals("ROLE_USER")) {
 				home = "redirect:/users/home";
-			}else if(r.getName().equals("ROLE_INSTRUCTOR") && principalRole.equals("ROLE_INSTRUCTOR")) {
-				home = "redirect:/instructor/home";
 			}
 
 		}
